@@ -1,0 +1,116 @@
+<!DOCTYPE html> 
+    <head>
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>Andela Bootcamp- Chart Application</title>
+        
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <script type="text/javascript" src="js/Chart.js"></script>
+        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        
+    </head>
+    
+    <body>
+    	
+    	<section id="page"> 
+    
+            <header> 
+            
+                <hgroup>
+                    <h1>Andela</h1>
+                    <h3>Chart Application</h3>
+                </hgroup>
+                                
+                <nav class="clear"> 
+                    <ul>
+                     <li><a href="#article2">Register</a></li>
+                    </ul>
+                </nav>
+            
+            </header>
+            
+            <section id="articles"> 
+
+                <div class="line"></div>  
+                
+                <article id="article1"> 
+                    <h2>Chart Application</h2>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="articleBody clear">
+                    
+                    	
+                        <figure> 
+                           
+                        <h3> Enter Your Data</h3>
+                                <br>
+                        <div class="stylescroll">
+                                <table id="dataTable" border="1">
+                                <tr>
+                                    <td>id</td>
+                                    <td>x</td>
+                                    <td>y</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td><input  type="text" id="x-axis"/></td>
+                                    <td><input  type="text" id="y-axis"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            
+                            <input type="button" class ="but" id="addrow" value="Add More Rows" onclick="insRow()"/>
+                            <input type="button" class ="but" id="deleterow" value="Delete Row" onclick="deleteRow()"/>
+                            <input type="button" class ="but" id="addrow" value="Generate Chart" onclick=""/>
+
+                        </div>
+                        
+                        </figure>
+                        
+                        <p>
+                           <label> Select Chart Type </label>
+                                <select id = "level" name = "level">
+                                <option value = "bar">Bar Chart</option>
+                                <option value = "pie">Pie Chart</option>
+                                <option value = "line">Line Chart</option>
+                                <option value = "histogram">Histogram</option>
+                                </select>
+                                <br>
+                            <label for ="title"> Enter Chart Title</label>
+                            <input type ="text" id = "title" name="title">
+                            <br>
+                                
+                         <div class ="line"></div>
+                        </p>
+                    </div>
+                </article>
+
+
+
+                <div class="line"></div>  
+                
+                <article id="article1"> 
+                    <h2>Chart Application</h2>
+                    
+                    <div class="line"></div>
+    
+                        <canvas id="can" width="500" height="500" />
+                
+                </article>
+
+
+            </section>
+
+        <footer> 
+
+           <div class="line"></div>
+           
+           <p>Copyright 2016 - Andela Bootcamp - Chart Applicatio</p> <
+        </footer>
+            
+		</section>
+    </body>
+</html>
