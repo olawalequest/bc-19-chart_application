@@ -55,41 +55,12 @@ footer .line{
 	margin:2em 0;
 }
 
-nav{
-	background-color: #ffffff
-	padding:0 5px;
-	position:absolute;
-	right:0;
-	top:4em;
-}
-
 .clear:after{
 	content: ".";
 	display: block;
 	height: 0;
 	clear: both;
 	visibility: hidden;
-}
-
-
-nav ul li{
-	display:inline;
-}
-
-nav ul li a,
-nav ul li a:visited{
-	float:left;
-	font-size:1.25em;
-	font-weight:bold;
-	margin:5px 2px;
-	padding:7px 10px 4px;
-	text-transform:uppercase;
-}
-
-nav ul li a:hover{
-	text-decoration:none;
-	background-color:#f0f0f0;
-	color: brown;
 }
 
 
@@ -113,18 +84,6 @@ figure{
 	overflow:hidden;
 	width:500px;
 }
-
-figure:hover{
-	-moz-box-shadow:0 0 2px #4D7788;
-	-webkit-box-shadow:0 0 2px #4D7788;
-	box-shadow:0 0 2px #4D7788;
-}
-
-figure img{
-	margin-left:-60px;
-}
-
-
 article {
     background-color: #1d718c;
     margin: 3em 0;
@@ -136,7 +95,7 @@ body {
     background-color: #0a495d;
     font-family: Arial, Helvetica, sans-serif;
 }
-nav, article, nav ul li a, figure {
+article,figure {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
@@ -156,19 +115,6 @@ footer p{
 	position:relative;
 }
 
-footer a,footer a:visited{
-	color:#cccccc;
-	background-color:#213e4a;
-	display:block;
-	padding:2px 4px;
-	z-index:100;
-	position:relative;
-}
-
-footer a:hover{
-	text-decoration:none;
-	background-color:#142830;
-}
 
 #email{
 	padding-left:6px;
@@ -184,13 +130,6 @@ footer a:hover{
 	margin-left:10em;
 }
 
-input{
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
 button:hover {
     background-color: #45a049;
 }
