@@ -24,3 +24,10 @@ function deleteRow(tableID)
         table.deleteRow(rowCount-1);
     }
 }
+
+// function to pick user selected chart type
+function pickChartType(){
+    var typeId = document.getElementById("type");
+    var type = typeId.options[typeId.selectedIndex].value;
+    alert(type);
+}
