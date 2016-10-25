@@ -29,5 +29,10 @@ function deleteRow(tableID)
 function pickChartType(){
     var typeId = document.getElementById("type");
     var type = typeId.options[typeId.selectedIndex].value;
-    alert(type);
+    document.getElementById("chart_title").innerHTML = document.getElementById('title').value;
+    if(type==="line"){
+        lineChartCall();
+    }
+    // alert(type);
 }
+
