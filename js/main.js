@@ -36,3 +36,18 @@ function pickChartType(){
     // alert(type);
 }
 
+//  function to get data input from the
+function getData(){
+   var table = document.getElementById( "dataTable" );
+   var xArr = [];
+   var yArr = [];
+   var dict = {};
+   var da=[];
+   for (var i = 1; i < table.rows.length; i++ ) {
+        dict = {x: parseFloat(table.rows[i].cells[1].getElementsByTagName('input')[0].value),
+                y: parseFloat(table.rows[i].cells[2].getElementsByTagName('input')[0].value)};
+        da.push(dict); 
+   }
+
+   return da;
+}
