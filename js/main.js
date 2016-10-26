@@ -259,3 +259,76 @@ function getData(key){
   }
   
 }
+
+//  main function for bar chart
+function BarChart(con){
+  this.graphCanvas = document.getElementById(con.canvasId);
+  this.context = this.graphCanvas.getContext("2d");
+  this.startY=480; // startY is the point on the canvas at the y-axis
+  this.startX=100;
+  this.barWidth=50;
+  this.markDataIncrementsIn=50;
+  this.chartHeight=this.graphCanvas.height-20;
+}
+
+//  to draw bar chart
+BarChart.prototype.drawBarChart=function(xArr,yArr) {
+  // Draw the x and y axes
+  var context=this.context;
+  context.lineWidth = "1.0";
+  this.drawLine(context, this.startX, this.startY, this.startX, 30); 
+  this.drawLine(this.context, this.startX, this.startY, 570, this.startY);           
+  context.lineWidth = "0.0";
+  var maxValue = 0;
+  alert(xArr);
+  alert(yArr);
+
+  for (var i=0; i < xArr.length; i++) {
+    // Extract the data
+    var name = xArr[i];
+    var height = parseInt(yArr[i]);
+
+    if (parseInt(height) > parseInt(maxValue)) {
+      maxValue = height;
+    }
+    // Write the data to the chart
+    context.fillStyle = "#b90000";
+    this.drawRectangle(context,this.startX + (i * this.barWidth) + i,(this.chartHeight - height),this.barWidth,height,true);
+    // Add the column title to the x-axis
+    context.textAlign = "left";
+    context.fillStyle = "#000";
+    context.fillText(name, this.startX + (i * this.barWidth) + i, this.chartHeight + 10, 200);     
+  }
+  // Add some data markers to the y-axis
+  var numMarkers = Math.ceil(maxValue / this.markDataIncrementsIn);
+  context.textAlign = "right";
+  context.fillStyle = "#000";
+  var markerValue = 0;
+  for (var i=0; i < numMarkers; i++) {      
+    context.fillText(markerValue, (this.startX - 5), (this.chartHeight - markerValue), 50);
+    markerValue += this.markDataIncrementsIn;
+  }
+};
+
+// drawLine - draws a line on a canvas context from the start point to the end point 
+BarChart.prototype.drawLine=function(contextO, startx, starty, endx, endy) {
+  contextO.beginPath();
+  contextO.moveTo(startx, starty);
+  contextO.lineTo(endx, endy);
+  contextO.closePath();
+  contextO.stroke();
+};
+
+// drawRectangle - draws a rectangle on a canvas context using the dimensions specified
+BarChart.prototype.drawRectangle=function(contextO, x, y, w, h, fill) {            
+  contextO.beginPath();
+  contextO.rect(x, y, w, h);
+  contextO.closePath();
+  contextO.stroke();
+  if (fill) contextO.fill();
+};
+
+
+
+
+
