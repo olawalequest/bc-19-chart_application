@@ -332,3 +332,78 @@ BarChart.prototype.drawRectangle=function(contextO, x, y, w, h, fill) {
 
 
 
+
+//  - till down  to draw pie chart- 
+
+// function to add rows data into an array
+function generateChart(){
+
+var table = document.getElementById( "dataTable" );
+var xArr = [];
+var yArr = [];
+for ( var i = 1; i < table.rows.length; i++ ) {
+    var xA1=parseFloat(table.rows[i].cells[1].getElementsByTagName('input')[0].value);
+    xArr.push(xA1
+    //     table.rows[i].cells[1].getElementsByTagName('input')[0].value
+    );
+    yArr.push(
+        table.rows[i].cells[2].getElementsByTagName('input')[0].value
+    );
+
+}
+// alert(xArr + yArr);
+ alert(xArr);
+ return xArr;
+}
+
+// function to draw pie chart
+function generatePie(){
+var canvas = document.getElementById("can");
+var ctx = canvas.getContext("2d");
+var myColor;
+var lastend = 0;
+// var data = [200, 60, 15]; // If you add more data values make sure you add more colors
+var data = generateChart();
+// alert(data);
+var myTotal = 0; // Automatically calculated so don't touch
+ // myColor = ['red', 'green', 'blue']; // Colors of each slice
+myColor = getRandomColor(data.length);
+alert(data.length);
+for (var e = 0; e < data.length; e++) {
+  myTotal += data[e];
+}
+alert(myTotal);
+
+for (var i = 0; i < data.length; i++) {
+  ctx.fillStyle = myColor[i];
+  ctx.beginPath();
+  ctx.moveTo(canvas.width / 2, canvas.height / 2);
+  // Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
+  ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2, lastend, lastend + (Math.PI * 2 * (data[i] / myTotal)), false);
+  ctx.lineTo(canvas.width / 2, canvas.height / 2);
+  ctx.fill();
+  lastend += Math.PI * 2 * (data[i] / myTotal);
+}
+}
+
+
+// function to get random
+function getRandomColor(coCount) {
+    var colors = [];
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var k =1;k<=coCount;k++){
+        color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+        }
+            colors.push(color)
+    }
+    alert(colors);
+    return colors;
+}
+
+
+
+
+
