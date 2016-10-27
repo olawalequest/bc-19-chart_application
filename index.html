@@ -7,6 +7,8 @@
         
         <link rel="stylesheet" type="text/css" href="css/main.css" />
         <script type="text/javascript" src="js/main.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
        
     </head>
     
@@ -42,12 +44,22 @@
                         <div class="stylescroll">
                                 <table id="dataTable" border="1">
                                 <tr>
-                                    <td>id</td>
-                                    <td>x</td>
-                                    <td>y</td>
+                                    <td>ID</td>
+                                    <td>Value</td>
+                                    <td>Value</td>
                                 </tr>
                                 <tr>
                                     <td>1</td>
+                                    <td><input  type="text" id="x-axis"/></td>
+                                    <td><input  type="text" id="y-axis"></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><input  type="text" id="x-axis"/></td>
+                                    <td><input  type="text" id="y-axis"></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
                                     <td><input  type="text" id="x-axis"/></td>
                                     <td><input  type="text" id="y-axis"></td>
                                 </tr>
@@ -55,9 +67,9 @@
                         </div>
                         <div>
                             
-                            <input type="button" class ="but" id="addrow" value="Add More Rows" onclick="insertRow('dataTable')"/>
-                            <input type="button" class ="but" id="deleterow" value="Delete Row" onclick="deleteRow('dataTable')"/>
-                            <input type="button" class ="but" id="addrow" value="Generate Chart" onclick="pickChartType()"/>
+                            <input type="button" class ="button_table" id="addrow" value="Add More Rows" onclick="insertRow('dataTable')"/>
+                            <input type="button" class ="button_table" id="deleterow" value="Delete Row" onclick="deleteRow('dataTable')"/>
+                            <input type="button" class ="button_table" id="addrow" value="Generate Chart" onclick="pickChartType()"/>
 
                         </div>
                         
@@ -69,14 +81,13 @@
                                 <option value = "bar" onclick="pickChartType()">Bar Chart</option>
                                 <option value = "pie" onclick="pickChartType()">Pie Chart</option>
                                 <option value = "line" onclick="pickChartType()">Line Chart</option>
-                                <option value = "histogram" onclick="pickChartType()">Histogram</option>
+                                <option value = "histogram" onclick="drawChart()">Histogram</option>
                                 </select>
                                 <br>
                             <label for ="title"> Enter Chart Title</label>
                             <input type ="text" id = "title" name="title">
                             <br>
                                 
-                         <div class ="line"></div>
                         </p>
                     </div>
                 </article>
@@ -85,12 +96,11 @@
 
                 <div class="line"></div>  
                 
-                <article id="article1"> 
-                    <h2>Chart Application</h2>
-                    
+                <article id="chart_space"> 
+                    <h2 id = "chart_head">Chart Diagram - </h2>
+                        <p id="chart_title">Chart Title</p>                    
                     <div class="line"></div>
                     <div>
-                        <p id="chart_title">Chart Title</p>
                         <canvas id="can" width="500" height="500" />
                     </div>
                 </article>
@@ -102,9 +112,10 @@
 
            <div class="line"></div>
            
-           <p>Copyright 2016 - Andela Bootcamp - Chart Applicatio</p> <
+           <p>Copyright 2016 - Andela Bootcamp - Chart Application</p>
         </footer>
             
-		</section>
+		</section>        
+
     </body>
 </html>
