@@ -79,7 +79,7 @@ article{
 figure{
 	/*border:3px solid #142830;*/
 	float:right;
-	height:300px;
+	height:350px;
 	margin-left:15px;
 	overflow:hidden;
 	width:500px;
@@ -123,7 +123,7 @@ select,#title{
 }*/
 .stylescroll
 {
-    max-height: 200px;
+    max-height: 250px;
     overflow-y: scroll;
 }
 input{
@@ -136,7 +136,7 @@ input{
     box-sizing: border-box;
 }
 .button_table{
-	width: 32%;
+	width: 48%;
     display: inline-block;
     box-sizing: border-box;
 }
@@ -148,4 +148,13 @@ input{
 }
 #dataTable{
 	width: 100%;
+}
+#fileUpload{
+	width: auto;
+}
+.button_t{
+	width: 40%;
+}
+#upload{
+	width: auto;
 }
