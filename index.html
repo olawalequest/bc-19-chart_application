@@ -7,6 +7,7 @@
         
         <link rel="stylesheet" type="text/css" href="css/main.css" />
         <script type="text/javascript" src="js/main.js"></script>
+        <script src="js/jquery-3.1.1.js"></script>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
        
@@ -63,13 +64,18 @@
                                     <td><input  type="text" id="x-axis"/></td>
                                     <td><input  type="text" id="y-axis"></td>
                                 </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><input  type="text" id="x-axis"/></td>
+                                    <td><input  type="text" id="y-axis"></td>
+                                </tr>
                             </table>
                         </div>
                         <div>
                             
                             <input type="button" class ="button_table" id="addrow" value="Add More Rows" onclick="insertRow('dataTable')"/>
                             <input type="button" class ="button_table" id="deleterow" value="Delete Row" onclick="deleteRow('dataTable')"/>
-                            <input type="button" class ="button_table" id="addrow" value="Generate Chart" onclick="pickChartType()"/>
+                            <!-- <input type="button" class ="button_table" id="addrow" value="Generate Chart" onclick="pickChartType()"/> -->
 
                         </div>
                         
@@ -87,6 +93,14 @@
                             <label for ="title"> Enter Chart Title</label>
                             <input type ="text" id = "title" name="title">
                             <br>
+                            <br>
+                            <label for="files">Upload a CSV formatted file:</label>
+                            <input type="file" id="fileUpload" accept=".csv" />
+                            <input type="button" id="upload" value="Upload" />
+                            <br>
+                            <br>
+                            <input type="button" class ="button_t" id="addrow" value="Generate Chart" onclick="pickChartType()"/>
+
                                 
                         </p>
                     </div>
@@ -115,7 +129,40 @@
            <p>Copyright 2016 - Andela Bootcamp - Chart Application</p>
         </footer>
             
-		</section>        
+		</section>    
+
+<script type="text/javascript">
+$(function () {
+    $("#upload").bind("click", function () {
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+        if (regex.test($("#fileUpload").val().toLowerCase())) {
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var cells=[];
+                    var rows = e.target.result.split("\n");
+                    for (var i = 0; i < rows.length; i++) {
+                        cells[i] = rows[i].split(",");
+                    }
+                    lengthData=cells.length;
+                    lengthTable = document.getElementById('dataTable').rows.length-1;
+                    if(lengthTable<lengthData){
+                        for(var t=1;t<=lengthData-lengthTable;t++){
+                            insertRow('dataTable');
+                        }
+                    }
+                    populateTable(cells);
+                }
+                reader.readAsText($("#fileUpload")[0].files[0]);
+            } else {
+                alert("This browser does not support HTML5.");
+            }
+        } else {
+            alert("Please upload a valid CSV file.");
+        }
+    });
+});
+</script>    
 
     </body>
 </html>
