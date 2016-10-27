@@ -20,9 +20,20 @@ function deleteRow(tableID)
 {
     var table = document.getElementById(tableID);
     var rowCount = table.rows.length;
-    if(rowCount!==2){
+    if(rowCount!==5){
         table.deleteRow(rowCount-1);
     }
+}
+
+
+
+function populateTable(data){
+  for(var p = 0;p<=data.length;p++){
+    document.getElementById('dataTable').rows[p+1].cells[1].children[0].value=data[p][0];
+    if(typeof(data[p][1])!=="undefined"){
+      document.getElementById('dataTable').rows[p+1].cells[2].children[0].value=data[p][1];
+    }
+  }
 }
 
 // function to pick user selected chart type
@@ -37,10 +48,42 @@ function pickChartType(){
     	barChartCall();
     }
     else if (type==="pie"){
-    	generatePie();
+    	// generatePie();
+      createPieChart();
+    }
+    else if (type==="histogram"){
+      drawChart();
     }
     // alert(type);
 }
+
+
+//  - function to draw line chart
+function lineChartCall(){
+   var myLineChart = new LineChart({
+        canvasId: "can",
+        minX: 0,
+        minY: 0,
+        maxX: 140,
+        maxY: 100,
+        unitsPerTickX: 10,
+        unitsPerTickY: 10
+    });
+    var dataB = getData('linedata');
+    myLineChart.drawLine(dataB, "blue", 3);
+};
+
+//  function to draw bar chart
+function barChartCall(){
+   var myBarChart = new BarChart({
+        canvasId: "can"
+    });
+    
+    myBarChart.drawBarChart(getData('xarr'), getData('yarr'));
+};
+
+
+
 
 
 
@@ -81,8 +124,7 @@ function LineChart(con) {
     this.drawXAxis();
     this.drawYAxis();
     }
- 
-   LineChart.prototype.getLongestValueWidth = function () {
+LineChart.prototype.getLongestValueWidth = function () {
       this.context.font = this.font;
        var longestValueWidth = 0;
        for (var n = 0; n <= this.numYTicks; n++) {
@@ -91,8 +133,7 @@ function LineChart(con) {
         }
        return longestValueWidth;
     };
- 
-    LineChart.prototype.drawXAxis = function () {
+ LineChart.prototype.drawXAxis = function () {
         var context = this.context;
         context.save();
         context.beginPath();
@@ -125,8 +166,7 @@ function LineChart(con) {
         }
         context.restore();
     };
- 
-    LineChart.prototype.drawYAxis = function () {
+ LineChart.prototype.drawYAxis = function () {
         var context = this.context;
         context.save();
         context.save();
@@ -161,8 +201,7 @@ function LineChart(con) {
         }
         context.restore();
     };
- 
-    LineChart.prototype.drawLine = function (data, color, width) {
+ LineChart.prototype.drawLine = function (data, color, width) {
        var context = this.context;
        // alert(width);
         context.save();
@@ -175,9 +214,7 @@ function LineChart(con) {
             // alert(data.length);
         for (var n = 0; n < data.length; n++) {
             var point = data[n];
-
- 
-                // draw segment
+    // draw segment
             context.lineTo(point.x * this.scaleX, point.y * this.scaleY);
             context.stroke();
             context.closePath();
@@ -192,8 +229,7 @@ function LineChart(con) {
         }
             context.restore();
     };
- 
-    LineChart.prototype.transformContext = function () {
+ LineChart.prototype.transformContext = function () {
         var context = this.context;
      // move context to center of canvas
         this.context.translate(this.x, this.y + this.height);
@@ -202,63 +238,7 @@ function LineChart(con) {
         context.scale(1, -1);
     };
 
-//  - function to draw line chart
-function lineChartCall(){
-   var myLineChart = new LineChart({
-        canvasId: "can",
-        minX: 0,
-        minY: 0,
-        maxX: 140,
-        maxY: 100,
-        unitsPerTickX: 10,
-        unitsPerTickY: 10
-    });
-    var dataB = getData('linedata');
-    myLineChart.drawLine(dataB, "blue", 3);
-};
 
-function barChartCall(){
-   var myBarChart = new BarChart({
-        canvasId: "can"
-    });
-    
-    myBarChart.drawBarChart(getData('xarr'), getData('yarr'));
-};
-
-
-//  function to get data input from the
-function getData(key){
-   var table = document.getElementById( "dataTable" );
-   var xArr = [];
-   var yArr = [];
-   var dict = {};
-   var da=[];
-
-   for (var i = 1; i < table.rows.length; i++ ) {
-    xArr.push(
-        table.rows[i].cells[1].getElementsByTagName('input')[0].value
-    );
-    yArr.push(
-        table.rows[i].cells[2].getElementsByTagName('input')[0].value
-    );
-  }
-
-  if(key==='linedata'){
-    for (var i = 1; i < table.rows.length; i++ ) {
-          dict = {x: parseFloat(table.rows[i].cells[1].getElementsByTagName('input')[0].value),
-                  y: parseFloat(table.rows[i].cells[2].getElementsByTagName('input')[0].value)};
-            da.push(dict);
-       }
-     return da;
-  }
-  else if(key==='xarr'){
-    return xArr;
-  }
-  else if(key==='yarr'){
-    return yArr;
-  }
-  
-}
 
 //  main function for bar chart
 function BarChart(con){
@@ -292,7 +272,7 @@ BarChart.prototype.drawBarChart=function(xArr,yArr) {
       maxValue = height;
     }
     // Write the data to the chart
-    context.fillStyle = "#b90000";
+    context.fillStyle = "#b95400";
     this.drawRectangle(context,this.startX + (i * this.barWidth) + i,(this.chartHeight - height),this.barWidth,height,true);
     // Add the column title to the x-axis
     context.textAlign = "left";
@@ -330,62 +310,37 @@ BarChart.prototype.drawRectangle=function(contextO, x, y, w, h, fill) {
 
 
 
-
-
-
-//  - till down  to draw pie chart- 
-
-// function to add rows data into an array
-function generateChart(){
-
-var table = document.getElementById( "dataTable" );
-var xArr = [];
-var yArr = [];
-for ( var i = 1; i < table.rows.length; i++ ) {
-    var xA1=parseFloat(table.rows[i].cells[1].getElementsByTagName('input')[0].value);
-    xArr.push(xA1
-    //     table.rows[i].cells[1].getElementsByTagName('input')[0].value
-    );
-    yArr.push(
-        table.rows[i].cells[2].getElementsByTagName('input')[0].value
-    );
-
-}
-// alert(xArr + yArr);
- alert(xArr);
- return xArr;
-}
-
+/*
 // function to draw pie chart
 function generatePie(){
-var canvas = document.getElementById("can");
-var ctx = canvas.getContext("2d");
-var myColor;
-var lastend = 0;
-// var data = [200, 60, 15]; // If you add more data values make sure you add more colors
-var data = generateChart();
-// alert(data);
-var myTotal = 0; // Automatically calculated so don't touch
- // myColor = ['red', 'green', 'blue']; // Colors of each slice
-myColor = getRandomColor(data.length);
-alert(data.length);
-for (var e = 0; e < data.length; e++) {
-  myTotal += data[e];
-}
-alert(myTotal);
+  var canvas = document.getElementById("can");
+  var ctx = canvas.getContext("2d");
+  var myColor;
+  var lastend = 0;
+  // var data = [200, 60, 15]; // If you add more data values make sure you add more colors
+  var data = getData("piedata");
+  // alert(data);
+  var myTotal = 0; // Automatically calculated so don't touch
+   // myColor = ['red', 'green', 'blue']; // Colors of each slice
+  myColor = getRandomColor(data.length);
+  alert(data.length);
+  for (var e = 0; e < data.length; e++) {
+    myTotal += data[e];
+  }
+  alert(myTotal);
 
-for (var i = 0; i < data.length; i++) {
-  ctx.fillStyle = myColor[i];
-  ctx.beginPath();
-  ctx.moveTo(canvas.width / 2, canvas.height / 2);
-  // Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
-  ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2, lastend, lastend + (Math.PI * 2 * (data[i] / myTotal)), false);
-  ctx.lineTo(canvas.width / 2, canvas.height / 2);
-  ctx.fill();
-  lastend += Math.PI * 2 * (data[i] / myTotal);
+  for (var i = 0; i < data.length; i++) {
+    ctx.fillStyle = myColor[i];
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, canvas.height / 2);
+    // Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
+    ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2, lastend, lastend + (Math.PI * 2 * (data[i] / myTotal)), false);
+    ctx.lineTo(canvas.width / 2, canvas.height / 2);
+    ctx.fill();
+    lastend += Math.PI * 2 * (data[i] / myTotal);
+  }
 }
-}
-
+*/
 
 // function to get random
 function getRandomColor(coCount) {
@@ -403,7 +358,157 @@ function getRandomColor(coCount) {
     return colors;
 }
 
+//  function to get data input from the
+function getData(key){
+   var table = document.getElementById( "dataTable" );
+   var xArr = [];
+   var yArr = [];
+   var dict = {};
+   var da=[];
+   var xA1,xArr1=[];
+
+   for (var i = 1; i < table.rows.length; i++ ) {
+    xArr.push(
+        table.rows[i].cells[1].getElementsByTagName('input')[0].value
+    );
+    yArr.push(
+        table.rows[i].cells[2].getElementsByTagName('input')[0].value
+    );
+    dict = {x: parseFloat(table.rows[i].cells[1].getElementsByTagName('input')[0].value),
+            y: parseFloat(table.rows[i].cells[2].getElementsByTagName('input')[0].value)};
+            da.push(dict);
+    xA1=parseFloat(table.rows[i].cells[1].getElementsByTagName('input')[0].value);
+    xArr1.push(xA1);
+  }
+
+  if(key==='linedata'){
+      return da;
+  }
+  else if(key==='xarr'){
+    return xArr;
+  }
+  else if(key==='yarr'){
+    return yArr;
+  }
+  else if(key==='piedata'){
+    return xArr1;
+}
+  
+}  
+
+function createPieChart() {
+  var pieChart = new PieChart( "can", 
+    {
+      includeLabels: true, 
+      // data: [40, 250, 70],
+      // labels: ["11%", "69.6%", "17.4%"],
+      // colors: ["#FFDAB9","#E6E6FA","#E0FFFF"]
+      data: getData('piedata'),
+      labels: getData('yarr'),
+      colors: getRandomColor(getData('piedata').length)
+    }
+  );
+  pieChart.draw();
+}
 
 
+function PieChart(id, o) {
+    this.includeLabels = false;
+    if (o.includeLabels == undefined) {
+        this.includeLabels = false;
+    }
+    else {
+        this.includeLabels = o.includeLabels;
+    }
+    this.data = o.data;
+    this.labels = o.labels;
+    this.colors = o.colors;
+    this.canvas = document.getElementById(id);
+}
+
+PieChart.prototype.select = function(segment) {
+        var context = this.canvas.getContext("2d");
+        this.drawSegment(this.canvas, context, segment, this.data[segment], true, this.includeLabels);
+    };
+PieChart.prototype.draw=function() {
+        var context = this.canvas.getContext("2d");
+        for (var i = 0; i < this.data.length; i++) {
+            this.drawSegment(this.canvas, context, i, this.data[i], false, this.includeLabels);
+        }
+    };
+PieChart.prototype.drawSegment= function(canvas, context, i, size, isSelected, includeLabels) {
+        context.save();
+        var centerX = Math.floor(canvas.width / 2);
+        var centerY = Math.floor(canvas.height / 2);
+        radius = Math.floor(canvas.width / 2);
+        
+        var startingAngle = this.degreesToRadians(this.sumTo(this.data, i));
+        var arcSize = this.degreesToRadians(size);
+        var endingAngle = startingAngle + arcSize;
+
+        context.beginPath();
+        context.moveTo(centerX, centerY);
+        context.arc(centerX, centerY, radius, startingAngle, endingAngle, false);
+        context.closePath();
+        context.fillStyle = this.colors[i];
+        context.fill();
+        context.restore();
+
+        if (includeLabels && (this.labels.length > i)) {
+            this.drawSegmentLabel(canvas, context, i, isSelected);
+        }
+    };
+
+PieChart.prototype.drawSegmentLabel= function(canvas, context, i, isSelected) {
+        context.save();
+        var x = Math.floor(canvas.width / 2);
+        var y = Math.floor(canvas.height / 2);
+        var angle;
+        var angleD = this.sumTo(this.data, i);
+        var flip = (angleD < 90 || angleD > 270) ? false : true;
+
+        context.translate(x, y);
+        if (flip) {
+            angleD = angleD-180;
+            context.textAlign = "left";
+            angle = this.degreesToRadians(angleD);
+            context.rotate(angle);
+            context.translate(-(x + (canvas.width * 0.5))+15, -(canvas.height * 0.05)-10);
+        }
+        else {
+            context.textAlign = "right";
+            angle = this.degreesToRadians(angleD);
+            context.rotate(angle);
+        }
+        //context.textAlign = "right";
+        var fontSize = Math.floor(canvas.height / 25);
+        context.font = fontSize + "pt Helvetica";
+
+        var dx = Math.floor(canvas.width * 0.5) - 10;
+        var dy = Math.floor(canvas.height * 0.05);
+        context.fillText(this.labels[i], dx, dy);
+
+        context.restore();
+};
+PieChart.prototype.drawLabel= function(i) {
+        var context = this.canvas.getContext("2d");
+        var size = this.data[i];
+
+        this.drawSegmentLabel(this.canvas, context, i, size, false);
+    },
+PieChart.prototype.degreesToRadians=function(degrees) {
+        return (degrees * Math.PI)/180;
+    };
+PieChart.prototype.sumTo= function(data, i) {
+        var sum = 0;
+        for (var j = 0; j < i; j++) {
+            sum += data[j];
+        }
+        return sum;
+};
 
 
+function drawChart() {
+
+
+}
