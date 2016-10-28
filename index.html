@@ -8,9 +8,7 @@
         <link rel="stylesheet" type="text/css" href="css/main.css" />
         <script type="text/javascript" src="js/main.js"></script>
         <script src="js/jquery-3.1.1.js"></script>
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-       
+      
     </head>
     
     <body>
@@ -20,8 +18,10 @@
             <header> 
             
                 <hgroup>
+                  <a href="index.html">
                     <h1>Andela</h1>
                     <h3>Chart Application</h3>
+                  </a>
                 </hgroup>
             
             </header>
@@ -40,7 +40,7 @@
                     	
                         <figure> 
                            
-                        <h3> Enter Your Data</h3>
+                        <h3 id="enter"> Enter Your Data</h3>
                                 <br>
                         <div class="stylescroll">
                                 <table id="dataTable" border="1">
@@ -66,6 +66,16 @@
                                 </tr>
                                 <tr>
                                     <td>4</td>
+                                    <td><input  type="text" id="x-axis"/></td>
+                                    <td><input  type="text" id="y-axis"></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><input  type="text" id="x-axis"/></td>
+                                    <td><input  type="text" id="y-axis"></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
                                     <td><input  type="text" id="x-axis"/></td>
                                     <td><input  type="text" id="y-axis"></td>
                                 </tr>
@@ -99,6 +109,7 @@
                             <input type="button" id="upload" value="Upload" />
                             <br>
                             <br>
+                           
                             <input type="button" class ="button_t" id="addrow" value="Generate Chart" onclick="pickChartType()"/>
 
                                 
