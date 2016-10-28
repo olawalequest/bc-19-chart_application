@@ -387,6 +387,8 @@ function getData(key){
 function generatePie(){
   var canvas = document.getElementById("can");
   var ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // to clear context, to clear save workspace 
+ 
   var myColor;
   var startingAngle = 0;
   var endingAngle;
