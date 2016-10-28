@@ -14,11 +14,13 @@ module.exports = {
     }
     return myTotal;
   }, // end of function
-  floatValue: function(data){
-    var floatArr=[];
-    for (var i = 0;i<data.length;i++){
-    floatArr.push(parseFloat(data[i]));
+  startingAng: function(data,total){
+    var startingArr=[];
+    var startingAngle=0;
+    for (var i = 0;i<data.length;i++){      
+      startingArr.push(startingAngle);
+      startingAngle += Math.ceil(Math.PI * 2 * (data[i] / total));
     }
-    return floatArr;
+    return startingArr;
   }
 }
