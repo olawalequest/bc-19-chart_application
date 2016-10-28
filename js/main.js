@@ -222,7 +222,7 @@ LineChart.prototype.getLongestValueWidth = function () {
         context.fillStyle = color;
         context.beginPath();
         context.moveTo(data[0].x * this.scaleX, data[0].y * this.scaleY);
-            for (var n = 0; n < data.length; n++) {
+          for (var n = 0; n < data.length; n++) {
             var point = data[n];
     // draw segment
             context.lineTo(point.x * this.scaleX, point.y * this.scaleY);
