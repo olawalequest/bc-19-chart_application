@@ -95,15 +95,16 @@ function histCall(){
 
 
 //  - Line Chart Function - 
-function LineChart(con) {
+class LineChart{
+  constructor(options){
  // user defined properties
-    this.canvas = document.getElementById(con.canvasId);
-    this.minX = con.minX;
-    this.minY = con.minY;
-    this.maxX = con.maxX;
-    this.maxY = con.maxY;
-    this.unitsPerTickX = con.unitsPerTickX;
-    this.unitsPerTickY = con.unitsPerTickY;
+    this.canvas = document.getElementById(options.canvasId);
+    this.minX = options.minX;
+    this.minY = options.minY;
+    this.maxX = options.maxX;
+    this.maxY = options.maxY;
+    this.unitsPerTickX = options.unitsPerTickX;
+    this.unitsPerTickY = options.unitsPerTickY;
  
     // constants
     this.padding = 10;
@@ -132,7 +133,8 @@ function LineChart(con) {
     // draw line for x y axis and tick marks
     this.drawXAxis();
     this.drawYAxis();
-    }
+  }
+}
 LineChart.prototype.getLongestValueWidth = function () {
       this.context.font = this.font;
        var longestValueWidth = 0;
@@ -142,8 +144,8 @@ LineChart.prototype.getLongestValueWidth = function () {
             longestValueWidth = Math.max(longestValueWidth, this.context.measureText(value).width);
         }
        return longestValueWidth;
-    };
- LineChart.prototype.drawXAxis = function () {
+  };
+LineChart.prototype.drawXAxis = function () {
         var context = this.context;
         context.save();
         context.beginPath();
@@ -251,17 +253,19 @@ LineChart.prototype.getLongestValueWidth = function () {
 
 
 //  main function for bar chart
-function BarChart(con){
-  this.graphCanvas = document.getElementById(con.canvasId);
-  this.context = this.graphCanvas.getContext("2d");
-  this.type=con.type;
-  this.startY=480; // startY is the point on the canvas at the y-axis
-  this.startX=100; //the
-  this.barWidth=20;
-  this.markDataIncrementsIn=20;
-  this.chartHeight=this.graphCanvas.height-20;
-  this.context.clearRect(0, 0, this.graphCanvas.width, this.graphCanvas.height); // to clear context, to clear save workspace 
+class BarChart{
+  constructor(options){
+    this.graphCanvas = document.getElementById(options.canvasId);
+    this.context = this.graphCanvas.getContext("2d");
+    this.type=options.type;
+    this.startY=480; // startY is the point on the canvas at the y-axis
+    this.startX=100; //the
+    this.barWidth=20;
+    this.markDataIncrementsIn=20;
+    this.chartHeight=this.graphCanvas.height-20;
+    this.context.clearRect(0, 0, this.graphCanvas.width, this.graphCanvas.height); // to clear context, to clear save workspace 
 
+  }
 }
 
 //  to draw bar chart
@@ -350,7 +354,7 @@ function getData(key){
    var xArr = [];
    var yArr = [];
    var dict = {};
-   var da=[];
+   var data=[];
    var xA1,xArr1=[];
 
    for (var i = 1; i < table.rows.length; i++ ) {
@@ -362,23 +366,36 @@ function getData(key){
     );
     dict = {x: parseFloat(table.rows[i].cells[1].getElementsByTagName('input')[0].value),
             y: parseFloat(table.rows[i].cells[2].getElementsByTagName('input')[0].value)};
-            da.push(dict);
+            data.push(dict);
     xA1=parseFloat(table.rows[i].cells[1].getElementsByTagName('input')[0].value);
     xArr1.push(xA1);
   }
 
-  if(key==='linedata'){
-      return da;
+  switch(key){
+    case 'linedata':{
+      return data;
+      break;
+    }
+
+    case 'xarr':{
+      return xArr;
+      break;
+    }
+
+    case 'yarr':{
+      return yArr;
+      break;
+    }
+
+    case 'piedata':{
+      return xArr1;
+      break;
+    }
+
+    default:{
+      alert("error");
+    }
   }
-  else if(key==='xarr'){
-    return xArr;
-  }
-  else if(key==='yarr'){
-    return yArr;
-  }
-  else if(key==='piedata'){
-    return xArr1;
-}
   
 }  
 
