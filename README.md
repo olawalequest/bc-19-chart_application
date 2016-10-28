@@ -14,3 +14,6 @@
  - Histogram
  - Bar Chart
  - Line Chart
+
+# Chart Application Preview
+ https://olawalequest.github.io/bc-19-chart_application/
