@@ -341,7 +341,6 @@ function getRandomColor(coCount) {
         }
             colors.push(color)
     }
-    alert(colors);
     return colors;
 }
 
