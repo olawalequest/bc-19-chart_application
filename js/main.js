@@ -222,7 +222,7 @@ LineChart.prototype.getLongestValueWidth = function () {
         context.fillStyle = color;
         context.beginPath();
         context.moveTo(data[0].x * this.scaleX, data[0].y * this.scaleY);
-            for (var n = 0; n < data.length; n++) {
+          for (var n = 0; n < data.length; n++) {
             var point = data[n];
     // draw segment
             context.lineTo(point.x * this.scaleX, point.y * this.scaleY);
@@ -341,7 +341,6 @@ function getRandomColor(coCount) {
         }
             colors.push(color)
     }
-    alert(colors);
     return colors;
 }
 
@@ -388,6 +387,8 @@ function getData(key){
 function generatePie(){
   var canvas = document.getElementById("can");
   var ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // to clear context, to clear save workspace 
+ 
   var myColor;
   var startingAngle = 0;
   var endingAngle;
